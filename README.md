@@ -1,6 +1,6 @@
 ![image](images/microchip.jpg) 
 
-## %repoDescritpion%
+## CODE EXAMPLES TESTING
 
 Board Image if any.
 
