@@ -5,9 +5,9 @@
     "metaDataVersion": "1.0.0",
     "name": "com.microchip.mplabx.project.code-examples-testing",
     "version": "1.0.1",
-    "displayName": "PIC24F Hello World UART",
-    "projectName": "pic24f-hello-world-uart",
-    "shortDescription": "PIC24F Hello World UART Example",
+    "displayName": "code-examples-testing",
+    "projectName": "code-examples-testing",
+    "shortDescription": "code-examples-testing",
 	"ide": {
 		"name": "MPLABX",
 		"semverRange": ">=5.40.0"
