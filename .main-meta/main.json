@@ -1,8 +1,8 @@
 {
-  "metaDataVersion": "1.0.0",
+  "metaDataVersion": "1.0.1",
   "category": "com.microchip.ide.project",
   "content": {
-    "metaDataVersion": "1.0.0",
+    "metaDataVersion": "1.0.1",
     "name": "com.microchip.mplabx.project.code-examples-testing",
     "version": "1.0.1",
     "displayName": "code-examples-testing",
