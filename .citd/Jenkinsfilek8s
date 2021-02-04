@@ -38,12 +38,12 @@ pipeline {
             List of GitHub Page Options:
             ----------------------------
             1. GITHUB_PAGES_NONE         ( Branch: None, index file path: None )
-            2. GITHUB_PAGES_MASTER_ROOT  ( Branch: Master, index file path: /root )
-            3. GITHUB_PAGES_MASTER_DOCS  ( Branch: Develop, index file path: /Docs ) 
-            4. GITHUB_PAGES_DEVELOP_ROOT ( Branch: Master, index file path: /root )
+            2. GITHUB_PAGES_MAIN_ROOT  ( Branch: Main, index file path: /root )
+            3. GITHUB_PAGES_MAIN_DOCS  ( Branch: Develop, index file path: /Docs ) 
+            4. GITHUB_PAGES_DEVELOP_ROOT ( Branch: Main, index file path: /root )
             5. GITHUB_PAGES_DEVELOP_DOCS ( Branch: Develop, index file path: /Docs )
         */
-        GITHUB_PAGES = 'GITHUB_PAGES_MASTER_ROOT'    
+        GITHUB_PAGES = 'GITHUB_PAGES_MAIN_ROOT'    
 
         /*
             Project Build Stage Information
