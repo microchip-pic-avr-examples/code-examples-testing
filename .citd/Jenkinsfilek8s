@@ -209,8 +209,9 @@ pipeline {
                 }
             }
         }
+		*/
   }
-*/
+
     post {
         success{
             script {
