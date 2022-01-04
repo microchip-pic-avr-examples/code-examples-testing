@@ -116,7 +116,7 @@ pipeline {
         }
         
         // GitHub repo creation 
-        /*stage('GitHub Repo Creation') {
+        stage('GitHub Repo Creation') {
             when {
 				anyOf {
 					allOf {
@@ -215,7 +215,7 @@ pipeline {
                 }
             }
         }
-		*/
+		
   }
 
     post {
