@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>pic24f-hello-world-uart</name>
+            <name>pic24f-hello-world-uart-example</name>
             <creation-uuid>f4c95147-c6e3-4d82-b91f-ffa118e17378</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
