@@ -7,7 +7,7 @@
     "version": "1.0.1",
     "displayName": "pic24f-hello-world-uart-example",
     "projectName": "pic24f-hello-world-uart-example",
-    "shortDescription": "pic24f-hello-world-uart-example",
+    "shortDescription":  "pic24f-hello-world-uart-example",
 	"ide": {
 		"name": "MPLABX",
 		"semverRange": ">=5.40.0"
