@@ -37,6 +37,8 @@
       "peripherals":[
       ],
       "keywords":[
+	     "UART",
+		 "USB"
       ]
    }
 }
