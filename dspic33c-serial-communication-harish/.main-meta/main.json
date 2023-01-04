@@ -3,7 +3,7 @@
   "category": "com.microchip.ide.project",
   "content": {
     "metaDataVersion": "1.3.0",
-    "name": "com.microchip.mplabx.project.dspic33c-serial-communication"
+    "name": "com.microchip.mplabx.project.dspic33c-serial-communication",
     "version": "1.0.1",
     "displayName": "dspic33c-serial-communication",
     "projectName": "dspic33c-serial-communication",
