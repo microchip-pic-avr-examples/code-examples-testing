@@ -55,7 +55,7 @@ pipeline {
     }
 
     triggers { 
-        cron(env.BRANCH_NAME == 'develop' ? '10 H * * *': '') 
+        cron(env.BRANCH_NAME == 'develop' ? 'H H 1 * *': '') 
     } 
     options {
         timestamps()
