@@ -57,8 +57,8 @@
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
-        <languageToolchain>XC16</languageToolchain>
-        <languageToolchainVersion>2.09</languageToolchainVersion>
+        <languageToolchain>XCDSC</languageToolchain>
+        <languageToolchainVersion>3.00</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
