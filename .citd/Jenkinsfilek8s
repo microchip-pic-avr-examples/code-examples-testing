@@ -4,7 +4,7 @@
     shared-library-mcu16ce - https://bitbucket.microchip.com/scm/citd/shared-library-mcu16ce.git
     shared-library-common - https://bitbucket.microchip.com/scm/citd/shared-library-common.git    
 */
-@Library(['shared-library-mcu16ce@develop', 'shared-library-common@develop']) _
+@Library(['shared-library-mcu16ce@master', 'shared-library-common@master']) _
 
 pipeline {
     agent {
@@ -29,31 +29,38 @@ pipeline {
         //This is the BitBucket source repo URL to be deployed
         BITBUCKET_SOURCE_URL = 'https://bitbucket.microchip.com/scm/mcu16ce/code-examples-testing.git'    
         //Files or folders to be excluded from deployment, if multiple files or folders use comma separator
-        DEPLOY_EXCLUDE_FOLDER_FILE_LIST = 'mchp_private'
+        DEPLOY_EXCLUDE_FOLDER_FILE_LIST = 'mchp_private,.mchp_private,sandbox,.sandbox'
         //Branch(s) to be deployed, if multiple branches use comma separator. DEPLOY_BRANCH_LIST is the target branch of the PR.
-        DEPLOY_BRANCH_LIST = "master, develop"
+        DEPLOY_BRANCH_LIST = "master"
+		/*When using the main.json schema version 1.3.0 or higher, the PORTAL will first reject registration attempt when an unapproved keyword is found, but can be forced to accept. 
+		  This argument is used to provide the list of unapproved keywords (also listed in main.json) which the deployment script will force the PORTAL to accept.*/
+		UNAPPROVED_KEYWORDS_OVERRIDE_LIST="1UART,U1ART"
         
         /*
             GitHub Page Stage Information
             List of GitHub Page Options:
             ----------------------------
             1. GITHUB_PAGES_NONE         ( Branch: None, index file path: None )
-            2. GITHUB_PAGES_MAIN_ROOT  ( Branch: Main, index file path: /root )
-            3. GITHUB_PAGES_MAIN_DOCS  ( Branch: Develop, index file path: /Docs ) 
-            4. GITHUB_PAGES_DEVELOP_ROOT ( Branch: Main, index file path: /root )
+            2. GITHUB_PAGES_MASTER_ROOT  ( Branch: Master, index file path: /root )
+            3. GITHUB_PAGES_MASTER_DOCS  ( Branch: Master, index file path: /Docs ) 
+            4. GITHUB_PAGES_DEVELOP_ROOT ( Branch: Develop, index file path: /root )
             5. GITHUB_PAGES_DEVELOP_DOCS ( Branch: Develop, index file path: /Docs )
         */
-        GITHUB_PAGES = 'GITHUB_PAGES_MAIN_ROOT'    
+        GITHUB_PAGES = 'GITHUB_PAGES_NONE'    
 
         /*
             Project Build Stage Information
         */
         MPLABX_PROJECT_SOURCE = "../"
     }
+	
+	triggers { 
+        cron(env.BRANCH_NAME == 'develop' ? 'H H 1 * *': '') 
+    } 
 
     options {
         timestamps()
-        timeout(time: 20, unit: 'MINUTES')
+        timeout(time: 30, unit: 'MINUTES')
     }
 
     stages {
@@ -75,11 +82,23 @@ pipeline {
         
         stage('Build') {
             steps {
-                script {                   
+                script {  
                     mplabxProjectBuild(
                         sourceFilePath: "${env.MPLABX_PROJECT_SOURCE}"
                     )
                }
+            }
+        }
+		
+		
+		//MisraCheck code analysis 
+        stage('MISRA Check') {
+            steps {
+                script {
+				    misraCheck(
+                        sourceProjectPath: "${env.MPLABX_PROJECT_SOURCE}"
+                    )
+                }
             }
         }
         
@@ -87,25 +106,26 @@ pipeline {
 		stage('Validate main.json') {            
             steps {
                script {                    
-                    validateMetaData()                   
+                    validateMetaData(
+                        unapprovedKeywordsOverrideList: "${UNAPPROVED_KEYWORDS_OVERRIDE_LIST}"
+                    )
                 }
             }
-        } 
+        }
         
-        // Creating tag in Bitbucket repo
-		stage('Bitbucket Tag Creation') {
+        stage('Doxygen files generation') {
             when {
-				anyOf {
-					allOf {
-						not { changeRequest() }
-						anyOf {branch 'master';}
-					}
-				}
+                anyOf {
+                    allOf {
+                        not { changeRequest() }
+                    }
+                }
             }
-			
             steps {
-               script {
-                    bitbucketTagCreation()
+                container('buildtools') {
+                    script {                    
+                        doxygen()
+                    }
                 }
             }
         }
@@ -113,18 +133,19 @@ pipeline {
         // GitHub repo creation 
         stage('GitHub Repo Creation') {
             when {
-				anyOf {
-					allOf {
-						not { changeRequest() }
-					}
-				}
+                anyOf {
+                    allOf {
+                        not { changeRequest() }
+			anyOf {branch 'master'; branch 'test_deploy';}
+                    }
+                }
             }
 
             steps {
                 script {
                     githubRepoCreate(
                          githubOrgName: "${env.GITHUB_PRODUCTION_ORGANIZATION}",
-						 deployBranchList: "${DEPLOY_BRANCH_LIST}"
+                         deployBranchList: "${DEPLOY_BRANCH_LIST}"
                     )
                 }
             }
@@ -133,13 +154,14 @@ pipeline {
         // Deploying the code to GitHub 
         stage('GitHub Deploy Source') {
             when {
-				anyOf {
-					allOf {
-						not { changeRequest() }
-					}
-				}
+                anyOf {
+                    allOf {
+                        not { changeRequest() }
+			anyOf {branch 'master'; branch 'test_deploy';}
+                    }
+                }
             }
-			
+            
             steps {
                 script {
                     githubDeploySource(
@@ -155,18 +177,19 @@ pipeline {
         // Creating GitHub release  
         stage('GitHub release') {
             when {
-				anyOf {
-					allOf {
-						not { changeRequest() }
-					}
-				}
+                anyOf {
+                    allOf {
+                        not { changeRequest() }
+			anyOf {branch 'master'; branch 'test_deploy';}
+                    }
+                }
             }
             
             steps {
                script {
                     githubReleaseCreate(
                         githubOrgName: "${env.GITHUB_PRODUCTION_ORGANIZATION}",
-						deployBranchList: "${DEPLOY_BRANCH_LIST}"                        
+                        deployBranchList: "${DEPLOY_BRANCH_LIST}"                        
                     )
                 }
             }
@@ -175,12 +198,12 @@ pipeline {
         // Creating GitHub Page  
         stage('GitHub Page Create') {
             when {
-				anyOf {
-					allOf {
-						not { changeRequest() }
-						anyOf {branch 'master';}
-					}
-				}
+                anyOf {
+                    allOf {
+                        not { changeRequest() }
+                        anyOf {branch 'master';}
+                    }
+                }
             }
             
             steps {
@@ -198,13 +221,14 @@ pipeline {
             when {
                 allOf {
                     not { changeRequest() }
-					anyOf {branch 'master';}
+                    anyOf {branch 'master';}
                 }
             }
             steps {
                 script {
                     portalDeploy(
-                        githubOrgName: "${env.GITHUB_PRODUCTION_ORGANIZATION}"
+                        githubOrgName: "${env.GITHUB_PRODUCTION_ORGANIZATION}",
+						unapprovedKeywordsOverrideList: "${UNAPPROVED_KEYWORDS_OVERRIDE_LIST}"
                     )
                 }
             }
