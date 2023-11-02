@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: xc16-mplabx-sonar-fmpp-python
-      image:  artifacts.microchip.com:7999/microchip/citd/bundles/xc16-mplabx-sonar-fmpp-python-yarn-node:3.00.TC1-6.15.04.7340-4.2-0.9.16-3.9.0-1.22.5-14.x
+      image:  artifacts.microchip.com:7999/microchip/citd/bundles/xc16-mplabx-sonar-fmpp-python-yarn-node:3.00.RC3-6.15.04.7340-4.2-0.9.16-3.9.0-1.22.5-14.x
       imagePullPolicy: Always
       command: ['cat']
       tty: true
