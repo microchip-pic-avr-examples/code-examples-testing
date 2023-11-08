@@ -4,10 +4,10 @@
   "content": {
     "metaDataVersion": "1.3.0",
     "name": "com.microchip.mplabx.project.code-examples-testing",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "displayName": "code-examples-testing",
     "projectName": "code-examples-testing",
-    "shortDescription": "code-examples-testing",
+    "shortDescription": "code-examples-testing updated description",
 	"ide": {
 		"name": "MPLABX",
 		"semverRange": ">=5.40.0"
