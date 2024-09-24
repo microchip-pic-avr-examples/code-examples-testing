@@ -132,7 +132,7 @@ pipeline {
         stage('Commit Hex File'){
             steps {
                script {
-                commitHexFile()
+                    commitHexFile()
                 }
         }
         // GitHub repo creation
