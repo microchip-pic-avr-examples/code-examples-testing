@@ -129,7 +129,13 @@ pipeline {
                 }
             }
         }
-
+        stage('Commit Hex File'){
+            steps {
+               script {
+                    commitHexFile()
+                }
+            }
+        }
         // GitHub repo creation
         stage('GitHub Repo Creation') {
             when {
