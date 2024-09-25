@@ -134,7 +134,7 @@ pipeline {
                script {
                     commitHexFile()
                 }
-        }
+            }
         }
         // GitHub repo creation
         stage('GitHub Repo Creation') {
