@@ -130,6 +130,14 @@ pipeline {
             }
         }
         stage('Commit Hex File'){
+            when {
+                anyOf{
+                    allOf {
+                        not { changeRequest() }
+                        anyOf {branch 'develop';}
+                    }
+                }
+            }
             steps {
                script {
                     commitHexFile()
