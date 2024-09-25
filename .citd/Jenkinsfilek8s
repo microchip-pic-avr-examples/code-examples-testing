@@ -130,6 +130,14 @@ pipeline {
             }
         }
         stage('Commit Hex File'){
+            when {
+                anyOf{
+                    allOf {
+                        changeRequest()
+                        expression { return env.CHANGE_TARGET == 'develop' }
+                    }
+                }
+            }
             steps {
                script {
                     commitHexFile()
