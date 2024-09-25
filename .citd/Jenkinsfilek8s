@@ -133,7 +133,7 @@ pipeline {
             when {
                 anyOf{
                     allOf {
-                        not { changeRequest() }
+                        changeRequest()
                         anyOf {branch 'develop';}
                     }
                 }
