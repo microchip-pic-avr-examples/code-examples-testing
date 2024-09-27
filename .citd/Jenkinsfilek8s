@@ -97,7 +97,7 @@ pipeline {
         stage('MISRA Check') {
             steps {
                 script {
-				    misraCheck(
+				    misraCheck(errortobeshown
                         sourceProjectPath: "${env.MPLABX_PROJECT_SOURCE}"
                     )
                 }
