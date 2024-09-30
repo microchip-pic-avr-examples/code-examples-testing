@@ -52,8 +52,6 @@ pipeline {
             Project Build Stage Information
         */
         MPLABX_PROJECT_SOURCE = "../"
-        // Creation of Jira ticket when the pipeline fails
-        JIRA_PROJECT_NAME= "CITD"
     }
 
 	triggers {
@@ -268,7 +266,9 @@ pipeline {
                     subject: "Failure Pipeline: ${currentBuild.fullDisplayName}",
                     body: "Something is right with ${env.BUILD_URL}"
                 )
-                createJiraTicket()
+                createJiraTicket(
+                    jiraProjectName: "CITD"
+                )
             }
         }
     }
