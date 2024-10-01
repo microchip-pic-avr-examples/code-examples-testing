@@ -61,7 +61,6 @@ int main(void)
 {
     // initialize the device
     SYSTEM_Initialize();
-    val=a;
     while (1)
     {
         __delay_ms(1000);
