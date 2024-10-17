@@ -129,7 +129,21 @@ pipeline {
                 }
             }
         }
-
+        stage('Commit Hex File'){
+            when {
+                anyOf{
+                    allOf {
+                        changeRequest()
+                        expression { return env.CHANGE_TARGET == 'develop' }
+                    }
+                }
+            }
+            steps {
+               script {
+                    commitHexFile()
+                }
+            }
+        }
         // GitHub repo creation
         stage('GitHub Repo Creation') {
             when {
@@ -247,6 +261,9 @@ pipeline {
         }
         failure {
             script {
+                createJiraTicket(
+                    jiraProjectName: "CITD"
+                )
                 sendMail(
                     mailId: "${env.NOTIFICATION_EMAIL}",
                     subject: "Failure Pipeline: ${currentBuild.fullDisplayName}",
