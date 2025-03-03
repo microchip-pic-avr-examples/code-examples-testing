@@ -113,6 +113,18 @@ pipeline {
             }
         }
 
+        stage('Validate release version') {
+            steps {
+               script {
+                    validateMainJson(
+                        bitbucketProjectName: "code-examples-testing",
+                        bitbucketRepoOwner: "MCU16CE",
+                        githubOrgName: "microchip-pic-avr-examples"
+                    )
+                }
+            }
+        }
+
         stage('Doxygen files generation') {
             when {
                 anyOf {
