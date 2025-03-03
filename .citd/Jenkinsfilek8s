@@ -273,9 +273,6 @@ pipeline {
         }
         failure {
             script {
-                createJiraTicket(
-                    jiraProjectName: "CITD"
-                )
                 sendMail(
                     mailId: "${env.NOTIFICATION_EMAIL}",
                     subject: "Failure Pipeline: ${currentBuild.fullDisplayName}",
