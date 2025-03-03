@@ -118,7 +118,7 @@ pipeline {
                script {
                     validateMainJson(
                         bitbucketProjectName: "code-examples-testing",
-                        bitbucketRepoOwner: "MCU16CE",
+                        bitbucketRepoName: "MCU16CE",
                         githubOrgName: "microchip-pic-avr-examples"
                     )
                 }
