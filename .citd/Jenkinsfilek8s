@@ -113,6 +113,18 @@ pipeline {
             }
         }
 
+        stage('Validate release version') {
+            steps {
+               script {
+                    validateMainJson(
+                        bitbucketProjectName: "code-examples-testing",
+                        bitbucketRepoName: "MCU16CE",
+                        githubOrgName: "microchip-pic-avr-examples"
+                    )
+                }
+            }
+        }
+
         stage('Doxygen files generation') {
             when {
                 anyOf {
@@ -261,9 +273,6 @@ pipeline {
         }
         failure {
             script {
-                createJiraTicket(
-                    jiraProjectName: "CITD"
-                )
                 sendMail(
                     mailId: "${env.NOTIFICATION_EMAIL}",
                     subject: "Failure Pipeline: ${currentBuild.fullDisplayName}",
