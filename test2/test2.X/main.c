@@ -1,6 +1,5 @@
 /**
   Generated main.c file from MPLAB Code Configurator
-
   @Company
     Microchip Technology Inc.
 

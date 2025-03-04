@@ -62,6 +62,5 @@ void INTERRUPT_Initialize (void)
     //    Priority: 1
         IPC12bits.U2EIP = 1;
     //    URXI: UART2 RX
-    //    Priority: 1
         IPC6bits.U2RXIP = 1;
 }
