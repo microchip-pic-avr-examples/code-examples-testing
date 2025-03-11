@@ -113,13 +113,12 @@ pipeline {
             }
         }
 
-        stage('Validate release version') {
+        stage('validateMetaDataContent Version Check') {
             steps {
-               script {
-                    validateMainJson(
+              script {
+                    validateMetaDataContentVersion(
                         bitbucketProjectName: "code-examples-testing",
-                        bitbucketRepoName: "MCU16CE",
-                        githubOrgName: "microchip-pic-avr-examples"
+                        githubOrganization: "microchip-pic-avr-examples"
                     )
                 }
             }
