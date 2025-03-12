@@ -66,6 +66,7 @@ int main(void)
         __delay_ms(1000);
         printf("\r\33[2K");
         printf("Welcome, this is message: %d", displayCount++);
+        __delay_ms(1000);
     }
     return 1; 
 }
