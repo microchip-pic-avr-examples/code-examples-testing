@@ -1,4 +1,4 @@
-# pic24f-hello-world-uart release v1.0.6
+# pic24f-hello-world-uart release v1.0.8
 ### Release Highlights
 
 Rolling changelog feature added

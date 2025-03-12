@@ -3,7 +3,6 @@
 
   @Company:
     Microchip Technology Inc.
-
   @File Name:
     clock.h
 
