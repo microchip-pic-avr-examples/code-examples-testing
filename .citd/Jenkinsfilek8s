@@ -144,7 +144,7 @@ pipeline {
             when {
                 anyOf{
                     allOf {
-                        changeRequest()
+                        not { changeRequest() }
                         expression { return env.CHANGE_TARGET == 'develop' }
                     }
                 }
