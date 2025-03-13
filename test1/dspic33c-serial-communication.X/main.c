@@ -63,10 +63,10 @@ int main(void)
     SYSTEM_Initialize();
     while (1)
     {
-        __delay_ms(1000);
+        __delay_ms(5000);
         printf("\r\33[2K");
         printf("Welcome, this is message: %d", displayCount++);
-        __delay_ms(1000);
+        __delay_ms(5000);
     }
     return 1; 
 }
