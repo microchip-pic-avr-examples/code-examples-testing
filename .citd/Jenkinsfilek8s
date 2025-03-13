@@ -117,8 +117,8 @@ pipeline {
             steps {
               script {
                     validateMetaDataContentVersion(
-                        bitbucketProjectName: "code-examples-testing",
-                        githubOrganization: "microchip-pic-avr-examples"
+                        bitbucketUrl: "${env.BITBUCKET_SOURCE_URL}",
+                        githubOrganization: "${env.GITHUB_PRODUCTION_ORGANIZATION}"
                     )
                 }
             }
