@@ -142,11 +142,9 @@ pipeline {
         }
         stage('Commit Hex File'){
             when {
-                anyOf{
-                    allOf {
-                        not { changeRequest() }
-                        expression { return env.CHANGE_TARGET == 'develop' }
-                    }
+                allOf {
+                    not { changeRequest() }
+                    branch 'develop'
                 }
             }
             steps {
