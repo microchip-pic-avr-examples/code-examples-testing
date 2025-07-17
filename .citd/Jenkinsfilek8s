@@ -140,19 +140,19 @@ pipeline {
                 }
             }
         }
-        stage('Commit Hex File'){
-            when {
-                allOf {
-                    not { changeRequest() }
-                    branch 'develop'
-                }
-            }
-            steps {
-               script {
-                    commitHexFile()
-                }
-            }
-        }
+        // stage('Commit Hex File'){
+        //     when {
+        //         allOf {
+        //             not { changeRequest() }
+        //             branch 'develop'
+        //         }
+        //     }
+        //     steps {
+        //        script {
+        //             commitHexFile()
+        //         }
+        //     }
+        // }
         // GitHub repo creation
         stage('GitHub Repo Creation') {
             when {
