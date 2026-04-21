@@ -1,0 +1,40 @@
+{
+    "version": "1.9",
+    "propertyGroups": [
+        {
+            "name": "default-XC-DSC",
+            "type": "toolchain",
+            "provider": "microchip.toolchains:xc-dsc@3.31.00",
+            "properties": {}
+        }
+    ],
+    "fileSets": [
+        {
+            "name": "default",
+            "files": [
+                {
+                    "include": "**/*",
+                    "exclude": "**/(_build|out|cmake|.vscode)/**/*"
+                }
+            ]
+        }
+    ],
+    "configurations": [
+        {
+            "name": "default",
+            "id": "conf1",
+            "device": "dsPIC33AK512MPS512",
+            "imagePath": "./out/vscodeTestPrj/default.elf",
+            "packs": [
+                {
+                    "name": "dsPIC33AK-MP_DFP",
+                    "vendor": "Microchip",
+                    "version": "1.3.185"
+                }
+            ],
+            "fileSet": "default",
+            "toolchain": "default-XC-DSC",
+            "includeLegacyMacros": true
+        }
+    ]
+}
