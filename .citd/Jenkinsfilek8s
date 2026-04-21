@@ -70,6 +70,19 @@ pipeline {
             }
         }
 
+        stage('MPLABX/VScode-XC16 Build') {
+            steps {
+                script { 
+                    mplabxMultiPlatformBuild(
+                        sourceFilePath: "${env.MPLABX_PROJECT_SOURCE}",
+                        compiler: "XC-DSC",
+                        publicDfpUpdate: false, // To build with latest public released dfp
+                        upgrade: false // To upgrade the projects which is there in .X to vscode project
+                    )
+                }
+            }
+        }
+
         stage('project config update') {
             steps {
                 script {
